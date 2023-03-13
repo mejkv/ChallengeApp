@@ -1,7 +1,7 @@
 
 namespace Projekt_ChallengeApp.Tests
 {
-    public class Tests
+    public class EmployeeTests
     {
         [SetUp]
         public void Setup()
