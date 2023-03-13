@@ -3,24 +3,19 @@ namespace Projekt_ChallengeApp.Tests
 {
     public class EmployeeTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
 
         [Test]
-        public void WhenUserCollectScores_ShouldCorrectResult()
+        public void TestOfEmployeeStatistics()
         {
-            // arrange - przygotowanie 
-            var user= new Employee("Adam", "asdqwe", 23);
-            user.AddScore(1);
-            user.AddScore(2);
+            var employee = new Employee("Jan", "Kowalski");
+            employee.AddScore(10);
+            employee.AddScore(9);
+            employee.AddScore(8);
+            var statistics = employee.GetStatistics();
 
-            // acc - uruchomienie
-            var result = user.Result;
-            
-            // asset - sprawdzenie warunków
-            Assert.AreEqual(3, result);
+            // assert - sprawdzenie warunków
+            Assert.IsNotNull(statistics);
+            Assert.That(statistics.Average, Is.Positive);
         }
     }
 }
