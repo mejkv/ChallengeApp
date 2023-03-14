@@ -4,12 +4,17 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Projekt_ChallengeApp
 {
-    public class Employee : Person
+    public class Employee : IEmployee
     {
         private List<float> score = new List<float>();
-        public Employee(string name, string surname, string sex)
-            : base(name, surname, sex) { }
-        
+        public Employee() { }
+        public Employee(string name, string surname)
+        {
+            this.Name = name;
+            this.Surname = surname;
+        }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
         public void AddScore(float score)
         {
             if (score >= 0 && score <= 100) 
@@ -22,6 +27,12 @@ namespace Projekt_ChallengeApp
             }
         }
 
+        public void AddScore(int score)
+        {
+            float result = score;
+            this.AddScore(result);
+        }
+
         public void AddScore(string score)
         {
             if(float.TryParse(score, out float result))
@@ -30,7 +41,31 @@ namespace Projekt_ChallengeApp
             }
             else
             {
-                throw new Exception("Invalid score value");
+                switch (score)
+                {
+                    case "A":
+                    case "a":
+                        this.AddScore(100);
+                        break;
+                    case "B":
+                    case "b":
+                        this.AddScore(80);
+                        break;
+                    case "C":
+                    case "c":
+                        this.AddScore(60);
+                        break;
+                    case "D":
+                    case "d":
+                        this.AddScore(40);
+                        break;
+                    case "E":
+                    case "e":
+                        this.AddScore(20);
+                        break;
+                    default:
+                        throw new Exception("Invalid score value");
+                }
             }
         }
 
