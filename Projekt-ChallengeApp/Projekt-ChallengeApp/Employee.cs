@@ -42,13 +42,31 @@ namespace Projekt_ChallengeApp
 
         public void AddScore(char score)
         {
-            if (char.IsDigit(score))
+            switch (score)
             {
-                this.AddScore(score);
-            }
-            else
-            {
-                Console.WriteLine($"Char {score} is not a digit");
+                case 'A':
+                case 'a':
+                    this.AddScore(100);
+                    break;
+                case 'B':
+                case 'b':
+                    this.AddScore(80);
+                    break;
+                case 'C':
+                case 'c':
+                    this.AddScore(60);
+                    break;
+                case 'D':
+                case 'd':
+                    this.AddScore(40);
+                    break;
+                case 'E':
+                case 'e':
+                    this.AddScore(20);
+                    break;
+                default:
+                    this.AddScore(0);
+                    break;
             }
         }
 
@@ -64,16 +82,37 @@ namespace Projekt_ChallengeApp
             statistics.Max = float.MinValue;
             statistics.Min = float.MaxValue;
             statistics.Average = 0;
+            statistics.Sum = 0;
 
             foreach (var score in this.score)
             {
                 statistics.Min = Math.Min(statistics.Min, score);
                 statistics.Max = Math.Max(statistics.Max, score);
                 statistics.Average += score;
-
+                statistics.Sum += score;
             }
 
             statistics.Average /= this.score.Count;
+
+            switch (statistics.Average)
+            {
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average >= 60:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                default:
+                    statistics.AverageLetter = 'E';
+                    break;
+            }
+
             return statistics;
         }
     }

@@ -1,12 +1,27 @@
 ﻿//Program 
 using Projekt_ChallengeApp;
 
-var employee = new Employee("Michał", "Miszczyszyn");
-employee.AddScore("a");
-employee.AddScore("3333");
-employee.AddScore(5);
-employee.AddScore(9);
+Console.WriteLine("Witamy w Programie XYZ do oceny Pracowników");
+Console.WriteLine("============================================");
+Console.WriteLine();
+
+var employee = new Employee("", "");
+
+while (true)
+{
+
+    Console.WriteLine("Podaj ocenę pracownika");
+    var input = Console.ReadLine();
+    if (input == "Q")
+    {
+        break;
+    }
+    employee.AddScore(input);
+}
+
+
+
 var statistics = employee.GetStatistics();
-Console.WriteLine($"Average: {statistics.Average:N2}");
-Console.WriteLine($"Min: {statistics.Min:N2}");
-Console.WriteLine($"Max: {statistics.Max:N2}");
+Console.WriteLine($"Average: {statistics.Average}");
+Console.WriteLine($"Min: {statistics.Min}");
+Console.WriteLine($"Max: {statistics.Max}");
