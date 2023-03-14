@@ -7,6 +7,7 @@ Console.WriteLine();
 
 var employee = new Employee("", "");
 
+
 while (true)
 {
 
@@ -16,7 +17,16 @@ while (true)
     {
         break;
     }
-    employee.AddScore(input);
+
+    try
+    {
+        employee.AddScore(input);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Exception catched: {e.Message}");
+        //throw new Exception("invalid score value");
+    }
 }
 
 

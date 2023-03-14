@@ -24,7 +24,7 @@ namespace Projekt_ChallengeApp
             }
             else 
             {
-                Console.WriteLine("Invalid score value");
+                throw new Exception("Invalid score value");
             }
         }
 
@@ -36,7 +36,7 @@ namespace Projekt_ChallengeApp
             }
             else
             {
-                Console.WriteLine("String in not float");
+                throw new Exception("Invalid score value");
             }
         }
 
@@ -65,8 +65,7 @@ namespace Projekt_ChallengeApp
                     this.AddScore(20);
                     break;
                 default:
-                    this.AddScore(0);
-                    break;
+                    throw new Exception("Invalid score value");
             }
         }
 
