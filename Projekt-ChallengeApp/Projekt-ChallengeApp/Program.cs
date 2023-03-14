@@ -6,7 +6,7 @@ Console.WriteLine("Witamy w Programie XYZ do oceny Pracowników");
 Console.WriteLine("============================================");
 Console.WriteLine();
 
-var employee = new Employee("Michał", "");
+var employee = new EmployeeInMemory("Michał", "");
 var supervisor = new Supervisor();
 
 while (true)
