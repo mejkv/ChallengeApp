@@ -4,17 +4,11 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Projekt_ChallengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
         private List<float> score = new List<float>();
-        public Employee(string name, string surname)
-        {
-            this.Name = name;
-            this.Surname = surname;
-        }
-
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
+        public Employee(string name, string surname, string sex)
+            : base(name, surname, sex) { }
         
         public void AddScore(float score)
         {
