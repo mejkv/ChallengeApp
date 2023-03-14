@@ -58,11 +58,6 @@ namespace Projekt_ChallengeApp
             this.AddScore(result);
         }
 
-        public void AddScore(decimal score)
-        {
-            var result = (float)score;
-            this.AddScore(result);
-        }
         public Statistics GetStatistics()
         {
             var statistics = new Statistics();
@@ -70,91 +65,12 @@ namespace Projekt_ChallengeApp
             statistics.Min = float.MaxValue;
             statistics.Average = 0;
 
-            var index = 0;
-
-            while (index < this.score.Count)
-            {
-                statistics.Min = Math.Min(statistics.Min, this.score[index]);
-                statistics.Max = Math.Max(statistics.Max, this.score[index]);
-                statistics.Average += this.score[index];
-                index++;
-            } 
-
-            statistics.Average /= this.score.Count;
-            return statistics;
-        }
-        public Statistics GetStatisticsWithForEach()
-        {
-            var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-
-            foreach ( var score in this.score )
+            foreach (var score in this.score)
             {
                 statistics.Min = Math.Min(statistics.Min, score);
                 statistics.Max = Math.Max(statistics.Max, score);
                 statistics.Average += score;
-                
-            }
 
-            statistics.Average /= this.score.Count;
-            return statistics;
-        }
-        public Statistics GetStatisticsWithFor()
-        {
-            var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-
-            
-
-            for (var index = 0; index < this.score.Count; index++)
-            {
-                statistics.Min = Math.Min(statistics.Min, this.score[index]);
-                statistics.Max = Math.Max(statistics.Max, this.score[index]);
-                statistics.Average += this.score[index];
-            }
-
-            statistics.Average /= this.score.Count;
-            return statistics;
-        }
-        public Statistics GetStatisticsWithDoWhile()
-        {
-            var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-
-            var index = 0;
-
-            do
-            {
-                statistics.Min = Math.Min(statistics.Min, this.score[index]);
-                statistics.Max = Math.Max(statistics.Max, this.score[index]);
-                statistics.Average += this.score[index];
-                index++;
-            } while (index < this.score.Count)
-
-                statistics.Average /= this.score.Count;
-            return statistics;
-        }
-        public Statistics GetStatisticsWithWhile()
-        {
-            var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-
-            var index = 0;
-
-            while (index < this.score.Count)
-            {
-                statistics.Min = Math.Min(statistics.Min, this.score[index]);
-                statistics.Max = Math.Max(statistics.Max, this.score[index]);
-                statistics.Average += this.score[index];
-                index++;
             }
 
             statistics.Average /= this.score.Count;
