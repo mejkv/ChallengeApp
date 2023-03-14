@@ -1,29 +1,12 @@
 ﻿//Program 
 using Projekt_ChallengeApp;
 
-Employee user1 = new Employee("michał","1234", 23);
-Employee user2 = new Employee("mikołaj", "1234", 18);
-Employee user3 = new Employee("marek", "1234", 22);
-
-List<Employee> employees = new List<Employee>() { user1, user2, user3 };
-
-for (int i = 0; i < 5; i++)
-{
-    user1.AddScore(i+5);
-	user2.AddScore(i+2);
-	user3.AddScore(i+4);
-}
-
-int bestresultd = 0;
-Employee best = null;	
-
-foreach (Employee employee in employees)
-{
-	if (employee.Result > bestresultd)
-	{
-		best = employee;
-		bestresultd = employee.Result;
-	}
-}
-
-Console.WriteLine("Najlepszy wynik ma: {0} i wynosi: {1}", best.Login, bestresultd);
+var employee = new Employee("Michał", "Miszczyszyn");
+employee.AddScore("a");
+employee.AddScore("3333");
+employee.AddScore(5);
+employee.AddScore(9);
+var statistics = employee.GetStatistics();
+Console.WriteLine($"Average: {statistics.Average:N2}");
+Console.WriteLine($"Min: {statistics.Min:N2}");
+Console.WriteLine($"Max: {statistics.Max:N2}");
