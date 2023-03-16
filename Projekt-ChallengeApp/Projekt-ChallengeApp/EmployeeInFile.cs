@@ -8,6 +8,8 @@ namespace Projekt_ChallengeApp
 {
     internal class EmployeeInFile : EmployeeBase
     {
+        public override event ScoreAddedDelegate ScoreAdded;
+
         private const string fileName = "scores.txt";
         public EmployeeInFile(string name, string surname) 
             : base(name, surname)
@@ -19,6 +21,11 @@ namespace Projekt_ChallengeApp
             using (var writer = File.AppendText(fileName))
             {
                 writer.WriteLine(score);
+
+                if (ScoreAdded != null)
+                {
+                    ScoreAdded(this, new EventArgs());
+                }
             }
         }
 
