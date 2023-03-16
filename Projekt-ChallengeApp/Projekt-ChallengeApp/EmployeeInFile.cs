@@ -24,28 +24,91 @@ namespace Projekt_ChallengeApp
 
         public override void AddScore(double score)
         {
-            throw new NotImplementedException();
+            var result = (float)score;
+            this.AddScore(result);
         }
 
         public override void AddScore(int score)
         {
-            throw new NotImplementedException();
+            float result = score;
+            this.AddScore(result);
         }
 
         public override void AddScore(char score)
         {
-            throw new NotImplementedException();
+            switch (score)
+            {
+                case 'A':
+                case 'a':
+                    this.AddScore(100);
+                    break;
+                case 'B':
+                case 'b':
+                    this.AddScore(80);
+                    break;
+                case 'C':
+                case 'c':
+                    this.AddScore(60);
+                    break;
+                case 'D':
+                case 'd':
+                    this.AddScore(40);
+                    break;
+                case 'E':
+                case 'e':
+                    this.AddScore(20);
+                    break;
+                default:
+                    throw new Exception("Invalid score value");
+            }
         }
 
         public override void AddScore(string score)
         {
-            throw new NotImplementedException();
+            if (float.TryParse(score, out float result))
+            {
+                this.AddScore(result);
+            }
+            else
+            {
+                switch (score)
+                {
+                    case "A":
+                    case "a":
+                        this.AddScore(100);
+                        break;
+                    case "B":
+                    case "b":
+                        this.AddScore(80);
+                        break;
+                    case "C":
+                    case "c":
+                        this.AddScore(60);
+                        break;
+                    case "D":
+                    case "d":
+                        this.AddScore(40);
+                        break;
+                    case "E":
+                    case "e":
+                        this.AddScore(20);
+                        break;
+                    default:
+                        throw new Exception("Invalid score value");
+                }
+            }
         }
 
         public override Statistics GetStatistics()
         {
-            var result = new Statistics();
+            var result = this.StatisticsFromFile();
+            var finalResult = this.GetStatisticsFromFile(result);
+            return finalResult;
+        }
 
+        private List<float> StatisticsFromFile() 
+        {
+            var scores = new List<float>();
             if (File.Exists(fileName))
             {
                 using (var reader = File.OpenText(fileName))
@@ -54,11 +117,52 @@ namespace Projekt_ChallengeApp
                     while (line != null)
                     {
                         var number = float.Parse(line);
-                        result.
-    
-                }
+                        scores.Add(number);
+                        line = reader.ReadLine();
+                    }
                 }
             }
+            return scores;
+        }
+
+        private Statistics GetStatisticsFromFile(List<float> scores)
+        {
+            var statistics = new Statistics();
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+            statistics.Average = 0;
+            statistics.Sum = 0;
+
+            foreach (var score in scores)
+            {
+                statistics.Min = Math.Min(statistics.Min, score);
+                statistics.Max = Math.Max(statistics.Max, score);
+                statistics.Average += score;
+                statistics.Sum += score;
+            }
+
+            statistics.Average /= scores.Count;
+
+            switch (statistics.Average)
+            {
+                case var average when average >= 80:
+                    statistics.AverageLetter = 'A';
+                    break;
+                case var average when average >= 60:
+                    statistics.AverageLetter = 'B';
+                    break;
+                case var average when average >= 40:
+                    statistics.AverageLetter = 'C';
+                    break;
+                case var average when average >= 20:
+                    statistics.AverageLetter = 'D';
+                    break;
+                default:
+                    statistics.AverageLetter = 'E';
+                    break;
+            }
+
+            return statistics;
         }
     }
 }
