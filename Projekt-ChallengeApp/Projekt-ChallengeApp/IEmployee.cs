@@ -1,4 +1,6 @@
-﻿namespace Projekt_ChallengeApp
+﻿using static Projekt_ChallengeApp.EmployeeBase;
+
+namespace Projekt_ChallengeApp
 {
     public interface IEmployee
     {
@@ -14,6 +16,8 @@
         void AddScore(char score);
 
         void AddScore(string score);
+
+        event ScoreAddedDelegate ScoreAdded;
 
         Statistics GetStatistics();
     }

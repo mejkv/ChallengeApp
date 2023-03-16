@@ -6,15 +6,13 @@ Console.WriteLine("Witamy w Programie XYZ do oceny Pracowników");
 Console.WriteLine("============================================");
 Console.WriteLine();
 
-var employee = new EmployeeInMemory("Michał", "");
+var employee = new EmployeeInFile("Michał", "");
 //employee.ScoreAdded += Employee_GradeAdded;
 
 void EmployeeGradeAdded(object sender, EventArgs  args)
 {
     Console.WriteLine("Dodano nową ocenę");
 }
-
-employee.AddScore(0.6f);
 
 while (true)
 {
@@ -38,6 +36,7 @@ while (true)
 
 var statistics = employee.GetStatistics();
 //var statistics1 = supervisor.GetStatistics();
+Console.WriteLine($"\nName and Surname: {employee.Name} {employee.Surname}");
 Console.WriteLine($"Average: {statistics.Average}");
 Console.WriteLine($"Letter: {statistics.AverageLetter}");
 Console.WriteLine($"Min: {statistics.Min}");

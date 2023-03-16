@@ -11,21 +11,29 @@ namespace Projekt_ChallengeApp
         public override event ScoreAddedDelegate ScoreAdded;
 
         private const string fileName = "scores.txt";
-        public EmployeeInFile(string name, string surname) 
+
+        public EmployeeInFile(string name, string surname)
             : base(name, surname)
         {
         }
 
         public override void AddScore(float score)
         {
-            using (var writer = File.AppendText(fileName))
+            if (score >= 0 && score <= 100)
             {
-                writer.WriteLine(score);
+                using (var writer = File.AppendText(fileName))
+                {
+                    writer.WriteLine(score);
+                }
 
                 if (ScoreAdded != null)
                 {
                     ScoreAdded(this, new EventArgs());
                 }
+            }
+            else
+            {
+                throw new Exception("Invalid score value");
             }
         }
 
@@ -113,7 +121,7 @@ namespace Projekt_ChallengeApp
             return finalResult;
         }
 
-        private List<float> StatisticsFromFile() 
+        private List<float> StatisticsFromFile()
         {
             var scores = new List<float>();
             if (File.Exists(fileName))
@@ -135,38 +143,10 @@ namespace Projekt_ChallengeApp
         private Statistics GetStatisticsFromFile(List<float> scores)
         {
             var statistics = new Statistics();
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-            statistics.Average = 0;
-            statistics.Sum = 0;
 
             foreach (var score in scores)
             {
-                statistics.Min = Math.Min(statistics.Min, score);
-                statistics.Max = Math.Max(statistics.Max, score);
-                statistics.Average += score;
-                statistics.Sum += score;
-            }
-
-            statistics.Average /= scores.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 80:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.AverageLetter = 'D';
-                    break;
-                default:
-                    statistics.AverageLetter = 'E';
-                    break;
+                statistics.AddScore(score);
             }
 
             return statistics;
